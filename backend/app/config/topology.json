@@ -1,0 +1,36 @@
+{
+  "model_version": "1.0.0",
+  "prefix": "10.10.0.0/24",
+  "subprefix": "10.10.0.0/25",
+  "probe_ip": "10.10.0.1",
+  "probe_port": 8080,
+  "victim": 65700,
+  "attacker": 65800,
+  "measured": [65100, 65200, 65300, 65400, 65500, 65600],
+  "ases": [
+    {"asn": 65100, "router": "r100", "role": "measured", "label": "Top transit", "router_id": 1},
+    {"asn": 65200, "router": "r200", "role": "measured", "label": "Transit", "router_id": 2},
+    {"asn": 65300, "router": "r300", "role": "measured", "label": "Victim provider", "router_id": 3},
+    {"asn": 65400, "router": "r400", "role": "measured", "label": "Attacker provider", "router_id": 4},
+    {"asn": 65500, "router": "r500", "role": "measured", "label": "Stub customer of r200", "router_id": 5},
+    {"asn": 65600, "router": "r600", "role": "measured", "label": "Attacker provider", "router_id": 6},
+    {"asn": 65700, "router": "r700", "role": "victim", "label": "Legitimate victim", "router_id": 7},
+    {"asn": 65800, "router": "r800", "role": "attacker", "label": "Attacker", "router_id": 8}
+  ],
+  "attacker_providers": [65400, 65600],
+  "links": [
+    {"provider": 65100, "customer": 65200},
+    {"provider": 65100, "customer": 65300},
+    {"provider": 65100, "customer": 65400},
+    {"provider": 65200, "customer": 65500},
+    {"provider": 65200, "customer": 65600},
+    {"provider": 65300, "customer": 65700},
+    {"provider": 65400, "customer": 65800},
+    {"provider": 65600, "customer": 65800}
+  ],
+  "roas": [
+    {"prefix": "10.10.0.0/24", "origin": 65700, "max_length": 24}
+  ],
+  "path_end_registry": {"65700": [65300]},
+  "local_pref": {"customer": 200, "peer": 150, "provider": 100}
+}
